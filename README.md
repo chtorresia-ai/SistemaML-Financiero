@@ -100,3 +100,140 @@ Respuesta:
 
 ---
 **Creado para análisis financiero automático ✨**
+
+
+## 🧪 Pruebas de la API
+
+### Ejecutar pruebas localmente
+
+```bash
+# Asegúrate de que el servidor esté corriendo en otra terminal
+python main.py
+
+# En otra terminal, ejecuta las pruebas
+python test_api.py
+```
+
+### Pruebas disponibles
+
+1. **Health Check**: Verifica que el servidor esté activo
+2. **Root Endpoint**: Confirma disponibilidad de documentación
+3. **Predict válido**: Prueba predicción con datos correctos
+4. **Validación de ingresos**: Rechaza valores negativos
+5. **Validación de activos**: Rechaza valores inválidos
+6. **Múltiples empresas**: Prueba con diferentes ratios financieros
+
+## 🔧 Configuración de Airtable
+
+### Método automático (Recomendado)
+
+```bash
+python setup_airtable.py <TU_API_KEY> <BASE_ID> <TABLE_ID>
+```
+
+**Cómo obtener tus credenciales:**
+
+1. Ve a [Airtable Account](https://airtable.com/account)
+2. Copia tu **Personal access token**
+3. En tu base, copia la **BASE_ID** de la URL: `airtable.com/base/<BASE_ID>`
+4. En tu tabla, obtén el **TABLE_ID** desde la API documentation
+
+### Campos creados automáticamente
+
+- ✅ RazonSocial (Texto)
+- ✅ Ingresos_Anuales (Número)
+- ✅ Gastos_Operacionales (Número)
+- ✅ Activos_Totales (Número)
+- ✅ Pasivos_Totales (Número)
+- ✅ Empleados (Número)
+- ✅ Rentabilidad_Predicha (Número - Salida)
+- ✅ RiesgoFinanciero_Score (Número - Salida)
+- ✅ Clasificacion_Riesgo (Texto - Salida)
+
+## 🚀 Despliegue en Producción
+
+### Render.com (Opción recomendada)
+
+1. **Conectar repositorio:**
+   - Ve a [Render Dashboard](https://dashboard.render.com)
+   - Crea un nuevo "Web Service"
+   - Conecta tu GitHub
+   - Selecciona este repositorio
+
+2. **Configurar automáticamente:**
+   - **Environment:** Python 3
+   - **Build:** `pip install -r requirements.txt`
+   - **Start:** `gunicorn main:app`
+
+3. **Variables de entorno (Opcional):**
+   - `LOG_LEVEL`: DEBUG | INFO | WARNING | ERROR
+
+4. **Tu API estará en:** `https://tu-app.onrender.com`
+
+### Heroku (Alternativa)
+
+```bash
+heroku login
+heroku create tu-app
+git push heroku main
+```
+
+## 📊 Dashboard n8n
+
+### Workflow de Automatización
+
+**Entrada:** Airtable (Tabla: Empresas)
+
+**Lógica:**
+1. Trigger cuando se crea registro
+2. Mapear campos a JSON
+3. POST a `/predict`
+4. Actualizar Airtable con resultados
+
+**Salida:** Campos de predicción en Airtable
+
+## 📈 Escalabilidad
+
+**Para producción:**
+
+- ✅ Usar base de datos PostgreSQL
+- ✅ Implementar Redis para caché
+- ✅ Agregar autenticación JWT
+- ✅ Rate limiting en endpoints
+- ✅ Logging y monitoreo
+- ✅ CI/CD con GitHub Actions
+
+## 📝 Estructura del Proyecto
+
+```
+SistemaML-Financiero/
+├── main.py              # API FastAPI principal
+├── setup_airtable.py    # Script de configuración
+├── test_api.py          # Suite de pruebas
+├── requirements.txt     # Dependencias Python
+├── README.md            # Este archivo
+└── .gitignore           # Archivos ignorados
+```
+
+## 🤝 Contribuciones
+
+Las pull requests son bienvenidas. Para cambios mayores:
+
+1. Fork el repositorio
+2. Crea una rama (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la MIT License.
+
+## 📞 Soporte
+
+¿Preguntas? Abre un Issue en GitHub.
+
+---
+
+**Última actualización:** Noviembre 2025
+**Estado:** ✅ 100% Funcional - Listo para Producción
